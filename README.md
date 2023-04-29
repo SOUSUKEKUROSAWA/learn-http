@@ -151,6 +151,53 @@ function logItems(items) {
     - `<domain>/<directory name>/<file name>`
       - ファイル名を指定しない場合は，指定したディレクトリ内のindex.htmlを表示する
 # ⌨️ (1:16:21) Ch 4 - Async JavaScript
+![](https://storage.googleapis.com/zenn-user-upload/4a0438bed0c6-20230429.png) 
+- 非同期処理
+  - 同時に複数のことを行うことができる
+- Promise
+  - 3つの状態を持つ
+    - 待機 (pending)
+      - 初期状態。成功も失敗もしていません。
+    - 履行 (fulfilled)
+      - 処理が成功して完了したことを意味します。
+    - 拒否 (rejected)
+      - 処理が失敗したことを意味します。
+- I/O Timings
+  - RAM -> 10^(-9) s -> sync
+    - 変数の作成，更新，削除などの操作
+      - 非同期で処理する必要は全くないくらい早い
+      - すべて同期的に行うことができる
+  - Disk -> 10^(-3) s -> async/sync
+    - ファイルシステムにアクセスして，テキストファイルを読み込んで分析を行うなどの操作
+      - ソリッドステートドライブを使用している場合は，これよりもはるかに高速
+      - ディスクから大量のデータを読み取っている場合は，同期的に実行すると問題が発生する可能性があるほど低速
+  - Network -> 10^(-1) ~ 1 s -> async
+    - HTTPリクエストなど
+      - 人間に気づかれるくらい低速
+- await
+  - プロミスが返ってくるまで処理を停止する
+    - JSのコード全体が停止するわけではない
+  - 非同期処理の中で同期的に処理を行うことができる
+- async
+  - コードを同期的処理の時と同じように書くことができるため，同期的な方法で非同期処理のコードを考えることができる
+```js
+
+```
+- .then() vs await
+  - .then()の方がネストによる結合が強い
+```js
+// then()
+fetchUser
+    .then(user => fetchLocationForUser(user))
+    .then(location => fetchServerForLocation(location))
+    .then(server => console.log(`The server is ${server}`))
+
+// async
+const user = await fetchUser()
+const location = await fetchLocationForUser(user)
+const server = await fetchServerForLocation(location)
+console.log(`The server is ${server}`)
+```
 # ⌨️ (1:49:48) Ch 5 - Errors in JS
 # ⌨️ (2:04:54) Ch 6 - HTTP Headers
 # ⌨️ (2:21:04) Ch 7 - JSON
