@@ -95,6 +95,61 @@ function logItems(items) {
         - ドメイン名
     - サブドメインを使用すると，新しいドメイン名を購入しなくても，ドメイン名でホストされているリソースを分割できる
 # ⌨️ (0:48:11) Ch 3 - URIs and URLs
+![](https://storage.googleapis.com/zenn-user-upload/70ae55eb73a5-20230429.png)
+- Uniform Resource Identifier
+  - URLを包含する
+  - 必ずしもインターネット経由でアクセスできないものも参照できる
+    - 書籍のISBN番号など
+  - インターネットを扱うときはURLを扱う
+- ex.) http://testuser:testpass@testdomain.com:8080/testpath?testsearch=testvalue#testhash
+  - protocol -> http:
+    - 必須
+    - 通信プロトコル
+      - http呼び出しを介してアクセスできる
+      - DB接続にはpostgressのようなものを使用する場合がある
+      - メールアドレスにはmailtoを使用する
+  - //
+    - 認証コンポーネント
+      - httpはユーザ名やパスワードなど認証情報を含めることができるためついている
+  - username -> testuser
+    - オプション
+  - password -> testpass
+    - オプション
+    - ユーザ名やパスワードは通常，URL自体ではなく，フォームの送信を介して使用される
+  - @
+    - パスワードとホスト名のセパレータ
+  - hostname -> testdomain.com
+    - 必須
+  - port -> 8080
+    - プロトコルごとにデフォルトのポート番号がある
+      - httpプロトコルの場合，80がデフォルト
+        - ポートを指定しない場合，リクエストはデフォルトでport=80を使用する
+      - httpsを使用する場合，443がデフォルト
+  - pathname -> /testpath
+  - search/query -> ?testsearch=testvalue
+    - キーと値のペア
+  - hash/fragment -> #testhash
+    - ページの特定のセクションへのリンク
+- ポート
+  - 同じ物理マシンで複数のソフトウェアをホストするためのソリューション
+    - OSによって管理される仮想の小さなハブ
+    - ex.) Server
+      - Web site
+        - パブリックに公開
+      - DB
+        - 自宅のPCにのみ公開
+    - OSはどのソフトウェアがどの受診ネットワーク要求を処理する必要があるかを知らない
+      - ポートを分けることによって通信を分割できる
+        - 2つのソフトウェアを同じポートにバインドすることはできません
+      - OSでは，65000以上の異なるポートを同時に使用できる
+- localhost
+  - 自分のコンピュータのドメイン
+- ルーティング
+  - 従来のファイルサーバは通常，慣例により，ディレクトリのパスをそのディレクトリ内のindex.htmlというファイルにルーティングする
+  - 同じディレクトリの別のファイルにアクセスしたい場合は`<domain>/<file name>`とすればよい
+  - ex.) 内部の異なるディレクトリにアクセスしたい場合
+    - `<domain>/<directory name>/<file name>`
+      - ファイル名を指定しない場合は，指定したディレクトリ内のindex.htmlを表示する
 # ⌨️ (1:16:21) Ch 4 - Async JavaScript
 # ⌨️ (1:49:48) Ch 5 - Errors in JS
 # ⌨️ (2:04:54) Ch 6 - HTTP Headers
