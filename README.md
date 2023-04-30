@@ -340,6 +340,91 @@ const jsObjRes = await res.json() // レスポンス（JSON）をJSオブジェ�
 }
 ```
 # ⌨️ (2:41:09) Ch 8 - HTTP Methods
+- GET
+  - サーバから表現またはコピーを取得
+    - サーバ上の情報を更新しない
+      - 何回呼んでも一緒
+- これらのメソッドの用途は規約
+  - 技術的には，GETリクエストでもリソースを作成することはできる
+```js
+await fetch(url, {
+    method: "GET",
+    mode: "cors", // ブラウザがセキュリティ上の目的でリクエストを強制終了しないようにする
+    headers: {
+        "sec-ch-ua-platform": "macOS"
+    }
+})
+```
+- CRUD
+  - Create -> POST
+  - Read -> GET
+  - Update -> PUT
+  - Delete -> DELETE
+- POST
+  - サーバ上に新しいリソースを作成する
+    - サーバ上の情報を変更する
+```js
+await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+        "Content-Type": "application/json" // ボディで送信するデータの種類
+        "X-API-Key": apiKey // 認証情報
+    },
+    body: JSON.stringfy(data)
+})
+```
+- ステータスコード
+  - すべてのHTTPレスポンスの状態を表す
+  - ![](https://storage.googleapis.com/zenn-user-upload/78af69c19589-20230430.png)
+  - 100~199
+    - info
+    - レアケース
+  - 200~299
+    - success
+      - 200
+        - OK
+          - リクエストが機能していることを表す
+      - 201
+        - Created
+          - サーバ上でリソースが作成されたことを表す
+  - 300~399
+    - redirect
+      - 301
+        - Moved permanently
+          - このリクエストを処理するサーバが別の場所へ移動したことを表す
+  - 400~499
+    - client error
+    - 認証されていないことをクライアントに伝える
+      - 400
+        - Bad request
+          - 一般的な不適切なリクエストを表す
+      - 403
+        - Unauthorized
+          - 認証されていないことを表す
+            - APIキーを渡すのを忘れりするとこうなる
+      - 404
+        - Not found
+          - 存在しないWebページにアクセスしようとしたことを表す
+  - 500~599
+    - server error
+      - 500
+        - Internal server error
+          - サーバのバグやDBがダウンしていることを表す
+- Patch vs PUT
+  - PUT
+    - リソース全体を更新する
+      - リクエスト時に更新するオブジェクト全体を送信する
+  - Patch
+    - リソースの一部分を更新する
+- Delete
+```js
+await fetch(url, {
+    method: "DELETE",
+    mode: "cors"
+})
+// どのリソースを削除するかはURLに含めることが多い
+```
 # ⌨️ (3:17:01) Ch 9 - URL Paths
 # ⌨️ (3:36:33) Ch 10 - HTTPS security
 # ⌨️ (3:48:24) Proj - Setup Dev Environment
