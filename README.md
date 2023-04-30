@@ -302,6 +302,43 @@ try {
 - ヘッダーは基本的に文字列として解析される
   - 数値として扱いたい場合は変換する必要がある可能性がある
 # ⌨️ (2:21:04) Ch 7 - JSON
+- 構造化されたデータをプレーンテキストとして送信するための非常に柔軟な方法
+  - ただし，受信時はただの文字列として送られてくる
+    - JSが解析できるようにJSオブジェクト，または配列に変換する必要がある
+      - Pythonでは，配列または辞書に変換する
+      - Goでは，スライス，マップ，または構造体に変換する
+```js
+const res = await fetch(...)
+const jsObjRes = await res.json() // レスポンス（JSON）をJSオブジェクトに変換
+```
+- JSON.parse() vs JSON.stringfy()
+  - JSON.stringfy()
+    - リクエスト時
+      - JSオブジェクトをJSON形式（文字列）へ変換できる
+  - JSON.parse()
+    - レスポンス後
+      - JSON形式をJSオブジェクトへ変換できる
+- XML
+  - JSONが一般的になる前はXMLが一般的だった
+  - 今でも仕様に問題があるわけではない
+    - 書き方が違う，
+      - JSONの方が冗長性が低いため，軽量
+```xml
+<root>
+    <id>1</id>
+    <genre>Action</genre>
+    <title>Iron Man</title>
+    <director>Jon Favreau</director>
+</root>
+```
+```json
+{
+    "id": "1",
+    "genre": "Action",
+    "title": "Iron Man",
+    "director": "Jon Favreau",
+}
+```
 # ⌨️ (2:41:09) Ch 8 - HTTP Methods
 # ⌨️ (3:17:01) Ch 9 - URL Paths
 # ⌨️ (3:36:33) Ch 10 - HTTPS security
