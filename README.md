@@ -180,9 +180,6 @@ function logItems(items) {
   - 非同期処理の中で同期的に処理を行うことができる
 - async
   - コードを同期的処理の時と同じように書くことができるため，同期的な方法で非同期処理のコードを考えることができる
-```js
-
-```
 - .then() vs await
   - .then()の方がネストによる結合が強い
 ```js
@@ -192,13 +189,101 @@ fetchUser
     .then(location => fetchServerForLocation(location))
     .then(server => console.log(`The server is ${server}`))
 
-// async
+// await
 const user = await fetchUser()
 const location = await fetchLocationForUser(user)
 const server = await fetchServerForLocation(location)
 console.log(`The server is ${server}`)
 ```
 # ⌨️ (1:49:48) Ch 5 - Errors in JS
+- HTTPや一般的なネットワークを操作する場合に非常に重要
+  - ex.) コンピュータでJSコードを実行していて突然インターネット接続が失われた場合
+    - コードに問題はなくても，リモートサーバからデータをフェッチすることはできなくなる
+  - ex.) 外部のライブラリを使用していて，参照先が制御できない場合
+    - try/catch構文で囲うことでエラーをハンドリングできる
+- Bugs vs Errors
+  - Bug
+    - コード内で発生する予期しないこと -> コードで修正するもの
+      - 発生した場合はコードを修正するしかない
+  - Error
+    - 予期できること -> コードで処理するもの
+      - 避けられないものの可能性もあり，コードを修正しても取り除くことができないものもある
+        - ex.)
+          - No Internet Connection
+          - Remote Server Down
+          - Bad User Input
+      - 避けられないものに関してはうまくハンドリングする必要がある
+- async/await vs promise
+  - async/await
+    - 可読性やエラーハンドリングを重視する場合
+  - Promise
+    - 柔軟性や並行処理を重視する場合
+## 関数宣言ではなく，アロー関数を使うとエラーが発生する問題
+```js
+try {
+    printCharacterStats(4)
+    printCharacterStats("ten")
+    printCharacterStats(10)
+} catch (error) {
+    console.log(error)
+}
+
+const printCharacterStats = level => {
+    if (isNaN(level)) {
+        throw "Parameter is not a number"
+    }
+    console.log(`level: ${level}`)
+}
+```
+- 状況
+  - 上記のコードをブラウザで実行
+  - `ReferenceError: printCharacterStats is not defined`
+- 原因
+  - アロー関数宣言と関数宣言では巻き上げ（hosting）を行うときの挙動に違いがあるから
+    - 関数宣言は関数の巻き上げに分類され，スコープ全体で有効になり，コードのどこからでも使用できる
+    - アロー関数宣言は変数の巻き上げに分類され，ブロックレベルでの巻き上げしか行われない
+- 解決策
+  - 関数宣言に変更する　OR　アロー関数の宣言を使用箇所よりも前に持ってくる
+```diff
+try {
+    printCharacterStats(4)
+    printCharacterStats("ten")
+    printCharacterStats(10)
+} catch (error) {
+    console.log(error)
+}
+
+- const printCharacterStats = level => {
++ function printCharacterStats(level) {
+    if (isNaN(level)) {
+        throw "Parameter is not a number"
+    }
+    console.log(`level: ${level}`)
+}
+```
+```diff
++ const printCharacterStats = level => {
++     if (isNaN(level)) {
++         throw "Parameter is not a number"
++     }
++     console.log(`level: ${level}`)
++ }
+
+try {
+    printCharacterStats(4)
+    printCharacterStats("ten")
+    printCharacterStats(10)
+} catch (error) {
+    console.log(error)
+}
+
+- const printCharacterStats = level => {
+-     if (isNaN(level)) {
+-         throw "Parameter is not a number"
+-     }
+-     console.log(`level: ${level}`)
+- }
+```
 # ⌨️ (2:04:54) Ch 6 - HTTP Headers
 # ⌨️ (2:21:04) Ch 7 - JSON
 # ⌨️ (2:41:09) Ch 8 - HTTP Methods
