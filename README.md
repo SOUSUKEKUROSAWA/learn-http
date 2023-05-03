@@ -426,6 +426,16 @@ await fetch(url, {
 // どのリソースを削除するかはURLに含めることが多い
 ```
 # ⌨️ (3:17:01) Ch 9 - URL Paths
+- https://api.boot.dev/v1/courses_rest_api/learn-http/locations
+  - v1
+    - apiのバージョン
+- RESTful
+  - Representational State Transfer
+  - 優れたAPIを開発するための規約
+    - クライアントとサーバという2つの要素が分離していて不可知
+      - 転送されるリソースに関する知識だけシェアされていれば，他の実装は何でもOK
+    - ステートレス
+      - サーバ／クライアントがそれぞれの状態を知る必要がない
 # ⌨️ (3:36:33) Ch 10 - HTTPS security
 # ⌨️ (3:48:24) Proj - Setup Dev Environment
 # ⌨️ (3:51:28) Proj - Hello World
