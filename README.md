@@ -566,7 +566,16 @@ function normalizeURL(urlString){
 - 相対URL
   - 始まりが`/`のやつ
     - ベースURLの続きであることを表す
-# ⌨️ (4:27:49) Proj - The main.js file
+# ⌨️ (4:27:49) Proj - The index.js file
+- process.argv
+  - ex.) $ node index.js AAA BBB CCC
+    - 0: 'C:\\Program Files\\nodejs\\node.exe'
+      - node 実行ファイル (インタープリタ／node.exe) のフルパス
+    - 1: 'C:\\Users\\kuros\\Documents\\learn-http\\index.js'
+      - スクリプトファイル (.js) のフルパス
+    - 2: AAA
+    - 3: BBB
+    - 4: CCC
 # ⌨️ (4:33:10) Proj - Using Fetch
 # ⌨️ (4:45:16) Proj - Recursively crawling the web
 # ⌨️ (4:55:33) Proj - Print an SEO report
