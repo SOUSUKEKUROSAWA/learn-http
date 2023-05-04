@@ -577,6 +577,10 @@ function normalizeURL(urlString){
     - 3: BBB
     - 4: CCC
 # ⌨️ (4:33:10) Proj - Using Fetch
+- fetch
+  - getリクエストの場合は，単に`fetch(<url>)`とするだけでOK
+- content-type
+  - テキストタイプ以外にも，文字コードタイプなどの情報も入る
 # ⌨️ (4:45:16) Proj - Recursively crawling the web
 # ⌨️ (4:55:33) Proj - Print an SEO report
 # ⌨️ (5:06:59) Proj - Conclusion
