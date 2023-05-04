@@ -558,6 +558,14 @@ function normalizeURL(urlString){
       - http://boot.dev -> boot.dev
       - https://Boot.dev -> boot.dev
 # ⌨️ (4:11:05) Proj - URLs from HTML
+- npm install jsdom
+  - 本番環境でも用いるため，`--save-dev`にする必要はない
+- JSDOM
+  - 文字列を解析してDOMを構成する
+    - 文字列をHTMLとして扱える
+- 相対URL
+  - 始まりが`/`のやつ
+    - ベースURLの続きであることを表す
 # ⌨️ (4:27:49) Proj - The main.js file
 # ⌨️ (4:33:10) Proj - Using Fetch
 # ⌨️ (4:45:16) Proj - Recursively crawling the web
