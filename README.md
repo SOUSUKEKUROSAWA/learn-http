@@ -526,6 +526,37 @@ await fetch(url, {
     - 再現性の向上
     - インストール速度の向上
 # ⌨️ (3:56:29) Proj - Normalize URLs
+- テスト駆動開発
+  - テストする関数をスタブ化する
+    - 入力したものを出力するだけの関数
+  - 関数のテストを作成する
+  - 関数の本質を実際に実装する
+スタブ関数
+```js
+function normalizeURL(urlString){
+  return urlString
+}
+```
+- jestはプロジェクトディレクトリ内の`*.test.js`にマッチするファイルを自動的に検索している
+- テストの書き方
+  - input
+    - 何かしらの入力
+  - actual
+    - `func(input)`
+  - expected
+    - 期待される出力
+  - テスト
+    - actualとexpectedが等しいかチェック
+- URLの正規化
+  - 以下は同じURLを示す
+    - https://boot.dev
+    - http://boot.dev
+    - https://Boot.dev
+  - 正規化
+    - URLを入力として受け取り，同じページを表すものを全て同じ出力として返す
+      - https://boot.dev -> boot.dev
+      - http://boot.dev -> boot.dev
+      - https://Boot.dev -> boot.dev
 # ⌨️ (4:11:05) Proj - URLs from HTML
 # ⌨️ (4:27:49) Proj - The main.js file
 # ⌨️ (4:33:10) Proj - Using Fetch
