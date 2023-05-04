@@ -467,7 +467,64 @@ await fetch(url, {
   - 暗号化の範囲
     - メッセージは暗号化されるが，通信相手や自分が誰であるかは実際には保護されない
 # ⌨️ (3:48:24) Proj - Setup Dev Environment
-# ⌨️ (3:51:28) Proj - Hello World
+- touch index.js
+- node index.js
+- npm init -y
+```diff
+"scripts": {
++ "start": "node index.js",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+```
+- Jestでテスト駆動開発
+  - JavaScriptのテスティングフレームワーク
+  - npm install --save-dev jest
+    - 開発環境でのみインストールされる
+```diff
+"scripts": {
+  "start": "node index.js",
+- "test": "echo \"Error: no test specified\" && exit 1"
++ "test": "jest"
+},
+```
+## node_modulesディレクトリをリモートリポジトリにプッシュしてはいけない理由
+- 容量節約
+  - node_modulesディレクトリは、プロジェクトに必要な依存関係を含むため、通常非常に大きなディレクトリです。
+  - これをリポジトリに含めると、リポジトリのサイズが著しく増加し、クローンやフェッチの速度が遅くなります。
+- 依存関係の管理
+  - package.jsonとpackage-lock.json（またはyarn.lock）ファイルは、プロジェクトに必要な依存関係とそのバージョンを明示的に記述しています。
+  - node_modulesをリポジトリに含めると、依存関係の管理が複雑になり、バージョンの衝突が発生する可能性があります。
+- 環境間の互換性
+  - 開発者が異なる環境（例えば、異なるOS）で作業する場合、node_modules内のパッケージは環境固有のバイナリを含むことがあります。
+  - リポジトリにnode_modulesを含めると、環境間の互換性の問題が発生する可能性があります。
+- まとめ
+  - 変更を追跡するのはpackage.jsonとpackage-lock.jsonのみで，node_modulesは含めない
+  - 他の開発者はリポジトリクローン後，npm installすればパッケージを正常にインストールすることができて，node_modulesも復元することができる
+## package.jsonだけではなく，package-lock.jsonもリモートリポジトリにプッシュする必要がある理由
+- 依存関係のバージョン固定
+  - package.jsonでは、依存関係のバージョン範囲を指定することが一般的です（例: "^1.0.0"）。
+  - しかし、この方法では、開発者が異なるタイミングでnpm installを実行すると、同じバージョン範囲内であっても異なるバージョンの依存関係がインストールされる可能性があります。
+  - これにより、バージョン間の微妙な違いによる予期しないバグや問題が発生することがあります。package-lock.jsonは、依存関係の正確なバージョンを記録するため、開発者間で一貫した環境を維持できます。
+- 再現性の向上
+  - package-lock.jsonは、依存関係のツリー構造と各パッケージの正確なバージョンを記録します。
+  - これにより、他の開発者や環境でプロジェクトをセットアップする際に、同じ依存関係の構成を正確に再現できます。
+  - これは、予期しない問題を防ぎ、デバッグ作業を容易にするのに役立ちます。
+- インストール速度の向上
+  - package-lock.jsonが存在する場合、npm installはpackage-lock.jsonに記載された依存関係のバージョンと構成を利用してインストールを行います。
+  - これにより、依存関係の解決プロセスが高速化され、インストールがより迅速に行われます。
+- まとめ
+  - package.jsonとpackage-lock.jsonは役割が違うから両方必要
+  - package.json
+    - 依存関係のバージョン範囲を定義
+    - プロジェクト情報
+    - スクリプトの定義
+      - npm start, npm devなど
+    - 依存関係の管理
+      - dependenciesとdevDependencies
+  - package-lock.json
+    - 依存関係のバージョンを固定
+    - 再現性の向上
+    - インストール速度の向上
 # ⌨️ (3:56:29) Proj - Normalize URLs
 # ⌨️ (4:11:05) Proj - URLs from HTML
 # ⌨️ (4:27:49) Proj - The main.js file

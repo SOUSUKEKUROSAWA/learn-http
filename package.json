@@ -1,0 +1,23 @@
+{
+  "name": "learn-http",
+  "version": "1.0.0",
+  "description": "learn-http",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SOUSUKEKUROSAWA/learn-http.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SOUSUKEKUROSAWA/learn-http/issues"
+  },
+  "homepage": "https://github.com/SOUSUKEKUROSAWA/learn-http#readme",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
