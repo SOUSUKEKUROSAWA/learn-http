@@ -582,6 +582,73 @@ function normalizeURL(urlString){
 - content-type
   - テキストタイプ以外にも，文字コードタイプなどの情報も入る
 # ⌨️ (4:45:16) Proj - Recursively crawling the web
+- ページ内のリンクを再帰的にクロールする
+  - 終了条件
+    - 外部ドメインのリンクアクセスしようとした場合
+    - または
+    - 既にクロール済みのリンクにアクセスしようとした場合
+## コンソールに`Promise { <pending> }`が出力される問題
+- 状況
+  - コンソールに意図していない`Promise { <pending> }`が出力される
+- 原因
+  - 非同期処理の結果をawaitしていなかったから
+- 解決策
+```diff
+- function main() {
++ async function main() {
+    if (process.argv.length < 3){
+        console.log('no website provided')
+        process.exit(1)
+    }
+
+    if (process.argv.length > 3){
+        console.log('too many arguments provided')
+        process.exit(1)
+    }
+
+    const baseURL = process.argv[2]
+
+    console.log(`starting crawl of ${baseURL}`)
+
+-   const pages = crawlPage(baseURL, baseURL, {})
++   const pages = await crawlPage(baseURL, baseURL, {})
+
+    console.log(pages)
+}
+```
+## 入力時baseURLの末尾に`/`をつけるかどうかで出力に差異が出てしまう問題
+- 状況
+  - `baseURL=https://wagslane.dev`とした場合と，`baseURL=https://wagslane.dev/`と指定した場合で，最後のpagesレポートの出力結果に差異が生じてしまう
+- 原因
+  - nextURLに返される値がbaseURLと相対パスを単純に連結しただけのものになっていたから
+- 解決策
+```diff
+function getURLsFromHTML(htmlBody, baseURL){
+    const urls = []
+    const dom = new JSDOM(htmlBody)
+    const aElements = dom.window.document.querySelectorAll('a')
+    for (const aElement of aElements){
+        if (aElement.href.slice(0,1) === '/'){
+            try {
+-               const urlObj = new URL(`${baseURL}${aElement.href}`)
++               const urlObj = new URL(baseURL);
++               urlObj.pathname = aElement.href;
+                urls.push(urlObj.href)
+            } catch (err) {
+                console.log(`${err.message}: ${aElement.href}`)
+            }
+        } else {
+            try {
+                const urlObj = new URL(aElement.href)
+                urls.push(urlObj.href)
+            } catch (err) {
+                console.log(`${err.message}: ${aElement.href}`)
+            }
+        }
+    }
+    return urls
+}
+```
 # ⌨️ (4:55:33) Proj - Print an SEO report
 # ⌨️ (5:06:59) Proj - Conclusion
 # ⌨️ (5:08:04) Congratulations

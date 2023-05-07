@@ -6,28 +6,28 @@ test('normalizeURL protocol', () => {
     const actual = normalizeURL(input)
     const expected = 'blog.boot.dev/path'
     expect(actual).toEqual(expected)
-  })
-  
-  test('normalizeURL slash', () => {
+})
+
+test('normalizeURL slash', () => {
     const input = 'https://blog.boot.dev/path/'
     const actual = normalizeURL(input)
     const expected = 'blog.boot.dev/path'
     expect(actual).toEqual(expected)
-  })
-  
-  test('normalizeURL capitals', () => {
+})
+
+test('normalizeURL capitals', () => {
     const input = 'https://BLOG.boot.dev/path'
     const actual = normalizeURL(input)
     const expected = 'blog.boot.dev/path'
     expect(actual).toEqual(expected)
-  })
-  
-  test('normalizeURL http', () => {
+})
+
+test('normalizeURL http', () => {
     const input = 'http://blog.boot.dev/path'
     const actual = normalizeURL(input)
     const expected = 'blog.boot.dev/path'
     expect(actual).toEqual(expected)
-  })
+})
 
 test('getURLsFromHTML absolute', () => {
     const input_htmlBody = `

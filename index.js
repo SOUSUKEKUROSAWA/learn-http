@@ -1,12 +1,12 @@
-const { crawlPage } = require('./crawl.js')
+const { crawlPage, normalizeURL } = require('./crawl.js')
 
-function main() {
-    if (process.argv.length < 3){
+async function main() {
+    if (process.argv.length < 3) {
         console.log('no website provided')
         process.exit(1)
     }
 
-    if (process.argv.length > 3){
+    if (process.argv.length > 3) {
         console.log('too many arguments provided')
         process.exit(1)
     }
@@ -15,7 +15,9 @@ function main() {
 
     console.log(`starting crawl of ${baseURL}`)
 
-    crawlPage(baseURL)
+    const pages = await crawlPage(baseURL, baseURL, {})
+
+    console.log(pages)
 }
 
 main()
