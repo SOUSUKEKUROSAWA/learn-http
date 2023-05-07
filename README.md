@@ -650,5 +650,10 @@ function getURLsFromHTML(htmlBody, baseURL){
 }
 ```
 # ⌨️ (4:55:33) Proj - Print an SEO report
+- 単純なコンソール出力ではなくSEOレポートにする
+- `npm run *`と`npm *`コマンドの違い
+  - npm startもnpm run startも同じ挙動を示すが，本来，`npm run *`はpackage.json内のカスタムスクリプトを実行するのに使用され、`npm *`はnpmのビルトインコマンドを実行するのに使用されます。
+    - そのため，カスタムスクリプトがビルトインコマンドと同じ名前になってしまっている場合，意図した挙動を示さない可能性がある
+    - 一般的でないカスタムスクリプトを作成し実行する場合は`npm run *`の形でコマンドを実行する方が間違いが起きづらい
 # ⌨️ (5:06:59) Proj - Conclusion
 # ⌨️ (5:08:04) Congratulations
